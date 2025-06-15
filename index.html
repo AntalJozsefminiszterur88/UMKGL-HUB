@@ -106,12 +106,136 @@
         max-width: none;
       }
 
+      /* Szavazás stílusok */
+      #pollCreator,
+      #pollDisplay {
+        background: #2c2f33;
+        padding: 1rem;
+        border: 1px solid #202225;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+      }
+      #pollCreator input[type="text"] {
+        width: 100%;
+        padding: 0.5rem;
+        margin: 0.25rem 0;
+        color: var(--text-primary);
+        background: #1e2124;
+        border: 1px solid #202225;
+        border-radius: 4px;
+      }
+      #pollCreator button,
+      #pollDisplay button,
+      #newPollBtn {
+        background: var(--accent);
+        border: none;
+        padding: 0.5rem 1rem;
+        margin-top: 0.5rem;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+        display: inline-block;
+      }
+      #pollDisplay button.option {
+        display: block;
+        margin: 0.25rem 0;
+        width: 100%;
+        text-align: left;
+      }
+      #newPollBtn {
+        margin-bottom: 1rem;
+      }
+
         footer {
           width: 100%;
           padding: 1rem;
           font-size: 0.875rem;
           background: rgb(47, 49, 54);
         }
+      /* Programok szekció stílusai */
+      #programok .program-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        justify-items: center;
+      }
+
+      #programok .box {
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+      }
+
+      .program-icon {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        margin-bottom: 10px;
+      }
+
+      .download-btn {
+        margin-top: 10px;
+        padding: 0.5rem 1rem;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: not-allowed;
+      }
+
+      /* Auth buttons */
+      .auth-buttons {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      .auth-buttons button,
+      .auth-buttons a {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        margin-left: 0.25rem;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      /* Login modal */
+      #loginModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #loginModal .modal-content {
+        background: var(--bg-secondary);
+        padding: 1rem;
+        border-radius: 4px;
+        width: 300px;
+      }
+
+      #loginModal input {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #202225;
+        border-radius: 4px;
+        background: #1e2124;
+        color: var(--text-primary);
+      }
+
+      #loginModal button {
+        width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -129,7 +253,23 @@
         <a href="#szavazas" data-section="szavazas">Szavazás</a>
         <a href="#programok" data-section="programok">Programok</a>
       </nav>
+      <div class="auth-buttons">
+        <button id="loginBtn">Bejelentkezés</button>
+        <a href="register.html" id="registerBtn">Regisztráció</a>
+      </div>
     </header>
+
+    <div id="loginModal">
+      <div class="modal-content">
+        <span id="closeLogin" style="float: right; cursor: pointer">&times;</span>
+        <h2>Bejelentkezés</h2>
+        <form id="loginForm">
+          <input type="text" id="loginUser" placeholder="Felhasználónév" required />
+          <input type="password" id="loginPass" placeholder="Jelszó" required />
+          <button type="submit">Belépés</button>
+        </form>
+      </div>
+    </div>
 
     <main>
       <!-- Főoldal -->
@@ -274,12 +414,51 @@
 
       <!-- Szavazás -->
       <section id="szavazas">
-        <p>Tartalom hamarosan...</p>
+        <div id="pollCreator">
+          <form id="createPollForm">
+            <input
+              id="questionInput"
+              type="text"
+              placeholder="Kérdés"
+              required
+            />
+            <div id="optionsContainer"></div>
+            <button type="button" id="addOptionBtn">Új válaszlehetőség</button>
+            <button type="submit">Szavazás létrehozása</button>
+          </form>
+        </div>
+        <div id="pollDisplay" style="display: none"></div>
+        <button id="newPollBtn" style="display: none">Új szavazás</button>
       </section>
 
-      <!-- Programok -->
+<!-- Programok -->
       <section id="programok">
-        <p>Tartalom hamarosan...</p>
+        <div class="flex program-grid">
+          <div class="box">
+            <img src="program_icons/foto-apparatus.png" alt="FOTO-Apparátus ikon" class="program-icon" />
+            <h3>FOTO-Apparátus</h3>
+            <p>Lefotózza a fitymádat bizonyos időközönként</p>
+            <button class="download-btn" disabled>Letöltés</button>
+          </div>
+          <div class="box">
+            <img src="program_icons/placeholder.png" alt="Program ikon" class="program-icon" />
+            <h3>Program 2</h3>
+            <p>Hamarosan...</p>
+            <button class="download-btn" disabled>Letöltés</button>
+          </div>
+          <div class="box">
+            <img src="program_icons/placeholder.png" alt="Program ikon" class="program-icon" />
+            <h3>Program 3</h3>
+            <p>Hamarosan...</p>
+            <button class="download-btn" disabled>Letöltés</button>
+          </div>
+          <div class="box">
+            <img src="program_icons/placeholder.png" alt="Program ikon" class="program-icon" />
+            <h3>Program 4</h3>
+            <p>Hamarosan...</p>
+            <button class="download-btn" disabled>Letöltés</button>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -321,6 +500,101 @@
         if (link) link.click();
       });
     </script>
-    <script src="HOI4-Porgonc/script.js"></script>
+
+    <script>
+      function addOptionField() {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Válaszlehetőség";
+        input.className = "poll-option";
+        document.getElementById("optionsContainer").appendChild(input);
+      }
+
+      document.getElementById("addOptionBtn").addEventListener("click", addOptionField);
+
+      document.getElementById("createPollForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const question = document.getElementById("questionInput").value.trim();
+        const optionInputs = document.querySelectorAll(".poll-option");
+        const options = Array.from(optionInputs)
+          .map((i) => i.value.trim())
+          .filter((v) => v);
+        if (!question || options.length < 2) {
+          alert("Adj meg kérdést és legalább 2 választ!");
+          return;
+        }
+        window.pollData = { question, options, votes: Array(options.length).fill(0) };
+        renderPoll();
+      });
+
+      function renderPoll() {
+        document.getElementById("createPollForm").style.display = "none";
+        const disp = document.getElementById("pollDisplay");
+        disp.innerHTML = `<h3>${window.pollData.question}</h3>`;
+        window.pollData.options.forEach((opt, i) => {
+          const btn = document.createElement("button");
+          btn.className = "option";
+          btn.textContent = `${opt} (0)`;
+          btn.addEventListener("click", () => vote(i, btn));
+          disp.appendChild(btn);
+        });
+        disp.style.display = "block";
+        document.getElementById("newPollBtn").style.display = "inline-block";
+      }
+
+      function vote(idx, btn) {
+        window.pollData.votes[idx]++;
+        btn.textContent = `${window.pollData.options[idx]} (${window.pollData.votes[idx]})`;
+      }
+
+      document.getElementById("newPollBtn").addEventListener("click", function () {
+        window.pollData = null;
+        document.getElementById("pollDisplay").innerHTML = "";
+        document.getElementById("pollDisplay").style.display = "none";
+        document.getElementById("createPollForm").style.display = "block";
+        document.getElementById("optionsContainer").innerHTML = "";
+        for (let i = 0; i < 2; i++) addOptionField();
+        document.getElementById("questionInput").value = "";
+        this.style.display = "none";
+      });
+
+    window.addEventListener("load", () => {
+      for (let i = 0; i < 2; i++) addOptionField();
+    });
+  </script>
+
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    const loginModal = document.getElementById("loginModal");
+    const closeLogin = document.getElementById("closeLogin");
+    const loginForm = document.getElementById("loginForm");
+
+    loginBtn.addEventListener("click", () => {
+      loginModal.style.display = "flex";
+    });
+
+    closeLogin.addEventListener("click", () => {
+      loginModal.style.display = "none";
+    });
+
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("loginUser").value;
+      const password = document.getElementById("loginPass").value;
+      const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      if (res.ok) {
+        alert("Sikeres bejelentkezés");
+      } else {
+        alert("Hibás felhasználónév vagy jelszó");
+      }
+      loginModal.style.display = "none";
+    });
+  </script>
+
+  <script src="HOI4-Porgonc/script.js"></script>
   </body>
 </html>
