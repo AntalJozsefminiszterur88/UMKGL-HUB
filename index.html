@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UMGKL Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --bg-primary: #36393f; /* Discord dark gray */
+        --bg-secondary: #2f3136; /* Slightly darker for header */
+        --text-primary: #dcddde; /* Light gray text */
+        --accent: #7289da; /* Discord blurple */
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header {
+        background: var(--bg-secondary);
+        padding-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      }
+
+      .banner {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+
+      h1 {
+        margin-top: 1rem;
+        font-size: 2.5rem;
+        color: var(--accent);
+      }
+
+      nav {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        border-top: 1px solid #202225;
+        border-bottom: 1px solid #202225;
+        padding: 0.5rem 0;
+      }
+
+      nav a {
+        color: var(--text-primary);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+
+      nav a:hover,
+      nav a.active {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      main {
+        flex: 1;
+        padding: 2rem;
+      }
+
+      section {
+        display: none;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: left;
+        line-height: 1.6;
+      }
+
+      section.active {
+        display: block;
+      }
+
+      footer {
+        padding: 1rem;
+        font-size: 0.875rem;
+        background: #202225;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <!-- Placeholder banner image -->
+      <img
+        src="https://via.placeholder.com/1200x300?text=Banner+kép"
+        alt="Banner"
+        class="banner"
+      />
+      <h1>UMGKL Hub</h1>
+      <nav>
+        <a href="#home" data-section="home" class="active">Főoldal</a>
+        <a href="#sorsolas" data-section="sorsolas">Hoi4 Sorsolás</a>
+        <a href="#szavazas" data-section="szavazas">Szavazás</a>
+        <a href="#programok" data-section="programok">Programok</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Főoldal -->
+      <section id="home" class="active">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam
+          lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam
+          viverra nec consectetur ante hendrerit. Donec et mollis dolor.
+          Praesent et diam eget libero egestas mattis sit amet vitae augue.
+          Nam tincidunt congue enim, ut porta lorem lacinia consectetur.
+          Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum
+          dolor sit amet, consectetur adipiscing elit.
+        </p>
+      </section>
+
+      <!-- Hoi4 Sorsolás -->
+      <section id="sorsolas">
+        <p>Tartalom hamarosan...</p>
+      </section>
+
+      <!-- Szavazás -->
+      <section id="szavazas">
+        <p>Tartalom hamarosan...</p>
+      </section>
+
+      <!-- Programok -->
+      <section id="programok">
+        <p>Tartalom hamarosan...</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 UMGKL Hub</p>
+    </footer>
+
+    <script>
+      // Egyszerű kliensoldali navigáció a szekciók között
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const target = link.dataset.section;
+
+          // Aktív nav elem frissítése
+          document
+            .querySelectorAll("nav a")
+            .forEach((a) => a.classList.remove("active"));
+          link.classList.add("active");
+
+          // Szekciók váltása
+          document.querySelectorAll("main section").forEach((sec) => {
+            if (sec.id === target) {
+              sec.classList.add("active");
+            } else {
+              sec.classList.remove("active");
+            }
+          });
+
+          // URL hash frissítése (opcionális)
+          history.pushState(null, "", `#${target}`);
+        });
+      });
+
+      // Oldal betöltésekor a hash alapján nyitjuk meg a megfelelő szekciót
+      window.addEventListener("load", () => {
+        const hash = location.hash.replace("#", "") || "home";
+        const link = document.querySelector(`nav a[data-section="${hash}"]`);
+        if (link) link.click();
+      });
+    </script>
+  </body>
+</html>
