@@ -152,6 +152,37 @@
           font-size: 0.875rem;
           background: rgb(47, 49, 54);
         }
+      /* Programok szekció stílusai */
+      #programok .program-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        justify-items: center;
+      }
+
+      #programok .box {
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+      }
+
+      .program-icon {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        margin-bottom: 10px;
+      }
+
+      .download-btn {
+        margin-top: 10px;
+        padding: 0.5rem 1rem;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: not-allowed;
+      }
     </style>
   </head>
   <body>
@@ -331,9 +362,34 @@
         <button id="newPollBtn" style="display: none">Új szavazás</button>
       </section>
 
-      <!-- Programok -->
+<!-- Programok -->
       <section id="programok">
-        <p>Tartalom hamarosan...</p>
+        <div class="flex program-grid">
+          <div class="box">
+            <img src="program_icons/foto-apparatus.png" alt="FOTO-Apparátus ikon" class="program-icon" />
+            <h3>FOTO-Apparátus</h3>
+            <p>Lefotózza a fitymádat bizonyos időközönként</p>
+            <button class="download-btn" disabled>Letöltés</button>
+          </div>
+          <div class="box">
+            <img src="program_icons/placeholder.png" alt="Program ikon" class="program-icon" />
+            <h3>Program 2</h3>
+            <p>Hamarosan...</p>
+            <button class="download-btn" disabled>Letöltés</button>
+          </div>
+          <div class="box">
+            <img src="program_icons/placeholder.png" alt="Program ikon" class="program-icon" />
+            <h3>Program 3</h3>
+            <p>Hamarosan...</p>
+            <button class="download-btn" disabled>Letöltés</button>
+          </div>
+          <div class="box">
+            <img src="program_icons/placeholder.png" alt="Program ikon" class="program-icon" />
+            <h3>Program 4</h3>
+            <p>Hamarosan...</p>
+            <button class="download-btn" disabled>Letöltés</button>
+          </div>
+        </div>
       </section>
     </main>
 
