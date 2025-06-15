@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Regisztráció</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        background: #36393f;
+        color: #dcddde;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        text-align: center;
+        padding-top: 4rem;
+      }
+      .register-form {
+        background: #2f3136;
+        display: inline-block;
+        padding: 2rem;
+        border-radius: 4px;
+      }
+      .register-form input {
+        display: block;
+        width: 200px;
+        margin: 0.5rem auto;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: none;
+      }
+      .register-form button {
+        background: #7289da;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .message {
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Regisztráció</h1>
+    <div class="register-form">
+      <input type="text" id="regUsername" placeholder="Felhasználónév" />
+      <input type="password" id="regPassword" placeholder="Jelszó" />
+      <button id="regSubmit">Regisztráció</button>
+      <div id="regMessage" class="message"></div>
+    </div>
+    <script>
+      document.getElementById("regSubmit").addEventListener("click", async () => {
+        const username = document.getElementById("regUsername").value;
+        const password = document.getElementById("regPassword").value;
+        const res = await fetch("/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+        const data = await res.json();
+        const msg = document.getElementById("regMessage");
+        if (data.success) {
+          msg.textContent = "Sikeres regisztráció";
+        } else {
+          msg.textContent = data.error || "Hiba";
+        }
+      });
+    </script>
+  </body>
+</html>
