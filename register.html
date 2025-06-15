@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Regisztráció</title>
+  <link rel="stylesheet" href="HOI4-Porgonc/style.css">
+  <style>
+    body { text-align: center; padding-top: 50px; }
+    form { background: #2f3136; padding: 1rem; border-radius: 4px; width: 300px; margin: auto; }
+    input { width: 100%; margin-bottom: 0.5rem; padding: 0.5rem; background:#1e2124; color:#dcddde; border:1px solid #202225; border-radius:4px; }
+    button { background: var(--accent); color:#fff; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer; width:100%; }
+  </style>
+</head>
+<body>
+  <h1>Regisztráció</h1>
+  <form id="registerForm">
+    <input type="text" id="regUser" placeholder="Felhasználónév" required />
+    <input type="password" id="regPass" placeholder="Jelszó" required />
+    <button type="submit">Regisztráció</button>
+  </form>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('regUser').value;
+      const password = document.getElementById('regPass').value;
+      const res = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      if(res.ok){
+        alert('Sikeres regisztráció');
+        window.location.href = '/';
+      } else {
+        alert('Hiba a regisztráció során');
+      }
+    });
+  </script>
+</body>
+</html>
